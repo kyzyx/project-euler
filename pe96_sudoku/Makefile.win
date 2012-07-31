@@ -1,0 +1,33 @@
+# Project: sudoku
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = solveSudoku.o sudoku.o $(RES)
+LINKOBJ  = solveSudoku.o sudoku.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -L"C:/cygwin/home/Edward/gmp-4.3.1" -L"C:/cygwin/home/Edward/gmp-4.3.1/.libs" -lgmpxx -lgmp  
+INCS =  -I"C:/Dev-Cpp/include"  -I"C:/Users/Edward/Documents/Programming/ProjectEuler/speedcrunch/src" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include"  -I"C:/Users/Edward/Documents/Programming/ProjectEuler/speedcrunch/src"  -I"C:/cygwin/home/Edward/gmp-4.3.1" 
+BIN  = sudoku.exe
+CXXFLAGS = $(CXXINCS)  
+CFLAGS = $(INCS)  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before sudoku.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "sudoku.exe" $(LIBS)
+
+solveSudoku.o: solveSudoku.cpp
+	$(CPP) -c solveSudoku.cpp -o solveSudoku.o $(CXXFLAGS)
+
+sudoku.o: sudoku.cpp
+	$(CPP) -c sudoku.cpp -o sudoku.o $(CXXFLAGS)
