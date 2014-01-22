@@ -2,6 +2,7 @@
  * Found the formula.
  * Brute force counting, dimensions up to 7000, maximum guess 100000 
  * Finds answer in 7:18
+ * SMART BRUTE: Set limits (Duh...)
  * */
 #include <iostream>
 #define D 30
@@ -12,11 +13,11 @@ long long tri(long long n) {
     return (n*(n+1))/2;
 }
 
-long long formula(long long a, long long b, long long c, int l) {
+long long f(long long a, long long b, long long c, int l) {
     if (l == 0) return a*b*c;
     if (l == 1) return 2*(a*b + a*c + b*c);
-    if (l == 2) return formula(a,b,c,1) + 4*(a+b+c);
-    return formula(a,b,c,1) + (l-1)*4*(a+b+c) + tri(l-2)*8;
+    if (l == 2) return 2*(a*b + a*c + b*c) + 4*(a+b+c);
+    return 2*(a*b + a*c + b*c) + (l-1)*4*(a+b+c) + tri(l-2)*8;
 }
 
 int x[] = {1,-1,0,0,0,0};
@@ -57,28 +58,25 @@ void printLayers(int a, int b, int c, int m) {
             }
         }
         cout << d << " ";
-        if (d != formula(a,b,c,l)) cout << "(" << formula(a,b,c,l) << ")";
+        if (d != f(a,b,c,l)) cout << "(" << f(a,b,c,l) << ")";
     }
 }
 
 #define M 7000
-#define lim 100000
+#define lim 30000
 void count() {
     int nways[lim];
     for (int i = 0; i < lim; ++i) nways[i] = 0;
-    for (int i = 1; i <= M; ++i) {
-        for (int j = i; j <= M; ++j) {
-            for (int k = j; k <= M; ++k) {
-                for (int l = 1; l < M; ++l) {
-                    long long a = formula(i,j,k,l);
-                    if (a < lim) {
-                        ++nways[a];
-                    }
-                    else break;
+    for (int i = 1; f(i,i,i,1) < lim; ++i) {
+        for (int j = i; f(i,j,j,1) < lim; ++j) {
+            for (int k = j; f(i,j,k,1) < lim; ++k) {
+                for (int l = 1; f(i,j,k,l) < lim; ++l) {
+                    long long a = f(i,j,k,l);
+                    ++nways[a];
                 }
             }
         }
-        if (i%100 == 0) cout << i << endl;
+        //cout << i << endl;
     }
     for (int i = 0; i < lim; ++i) {
         if (nways[i] == 1000) {
@@ -102,4 +100,6 @@ int main() {
         }
     }*/
     count();
+    cin.get();
+    return 0;
 }

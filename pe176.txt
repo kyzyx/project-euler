@@ -1,0 +1,5 @@
+From http://mathworld.wolfram.com/PythagoreanTriple.html
+We have L(s) = 0.5((2k0-1)*(2k1+1)*(2k2+1)... - 1)
+Factoring 47547*2+1 = 95095 = 5*7*11*13*19
+2^10 * 3^6 * 5^5 * 7^3 * 11^2 = 
+96818198400000
